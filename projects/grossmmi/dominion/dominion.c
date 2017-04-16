@@ -668,6 +668,19 @@ void adventurerM(int currentPlayer, int *cardDrawn, int *drawntreasure, int* tem
   }
 }
 
+void smithyM(int currentPlayer, int handPos, struct gameState *state)
+{
+  //+3 Cards
+  int i;
+  for (i = 0; i < 3; i++)
+  {
+    drawCard(currentPlayer, state);
+  }
+
+  //discard card from hand
+  discardCard(handPos, currentPlayer, state, 0);
+}
+
 int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 {
   int i;
@@ -712,7 +725,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       }
 
     */
-      adventurerM(currentPlayer, &cardDrawn, &drawntreasure, &temphand, &z, state);
+      adventurerM(currentPlayer, &cardDrawn, &drawntreasure, temphand, &z, state);
       return 0;
 
     case council_room:
@@ -857,6 +870,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 
     case smithy:
+  /*
       //+3 Cards
       for (i = 0; i < 3; i++)
 	{
@@ -865,6 +879,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
       //discard card from hand
       discardCard(handPos, currentPlayer, state, 0);
+  */
+      smithyM(currentPlayer, handPos, state);
       return 0;
 
     case village:
