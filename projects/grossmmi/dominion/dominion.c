@@ -681,6 +681,30 @@ void smithyM(int currentPlayer, int handPos, struct gameState *state)
   discardCard(handPos, currentPlayer, state, 0);
 }
 
+void villageM(int currentPlayer, int handPos, struct gameState *state)
+{
+  //+1 Card
+  drawCard(currentPlayer, state);
+
+  //+2 Actions
+  state->numActions = state->numActions + 2;
+
+  //discard played card from hand
+  discardCard(handPos, currentPlayer, state, 0);
+}
+
+great_hallM(int currentPlayer, int handPos, struct gameState *state)
+{
+  //+1 Card
+  drawCard(currentPlayer, state);
+
+  //+1 Actions
+  state->numActions++;
+
+  //discard card from hand
+  discardCard(handPos, currentPlayer, state, 0);
+}
+
 int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 {
   int i;
@@ -884,6 +908,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 
     case village:
+    /*
       //+1 Card
       drawCard(currentPlayer, state);
 
@@ -892,6 +917,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
       //discard played card from hand
       discardCard(handPos, currentPlayer, state, 0);
+      */
+      villageM(currentPlayer, handPos, state);
       return 0;
 
     case baron:
@@ -946,6 +973,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 
     case great_hall:
+    /*
       //+1 Card
       drawCard(currentPlayer, state);
 
@@ -954,6 +982,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
       //discard card from hand
       discardCard(handPos, currentPlayer, state, 0);
+      */
+      great_hallM(currentPlayer, handPos, state);
       return 0;
 
     case minion:
