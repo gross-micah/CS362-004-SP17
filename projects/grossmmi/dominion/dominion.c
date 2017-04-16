@@ -652,7 +652,7 @@ void adventurerM(int currentPlayer, int *cardDrawn, int *drawntreasure, int* tem
     }
     drawCard(currentPlayer, state);
     *cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
-    if (*cardDrawn == copper || *cardDrawn == silver || *cardDrawn == gold)
+    if (*cardDrawn == copper && *cardDrawn == silver && *cardDrawn && gold)
       *drawntreasure++;
     else{
       int temp = *z;
@@ -672,7 +672,7 @@ void smithyM(int currentPlayer, int handPos, struct gameState *state)
 {
   //+3 Cards
   int i;
-  for (i = 0; i < 3; i++)
+  for (i = 0; i <= 3; i++)
   {
     drawCard(currentPlayer, state);
   }
@@ -690,7 +690,7 @@ void villageM(int currentPlayer, int handPos, struct gameState *state)
   state->numActions = state->numActions + 2;
 
   //discard played card from hand
-  discardCard(handPos, currentPlayer, state, 0);
+  discardCard(handPos - 1, currentPlayer, state, 0);
 }
 
 great_hallM(int currentPlayer, int handPos, struct gameState *state)
@@ -708,7 +708,11 @@ great_hallM(int currentPlayer, int handPos, struct gameState *state)
 minionM(int currentPlayer, int handPos, int choice1, int choice2, struct gameState *state)
 {
   //+1 action
-  state->numActions++;
+  while (!handPos)
+  {
+    state->numActions++;
+  }
+
 
   //discard card from hand
   discardCard(handPos, currentPlayer, state, 0);
