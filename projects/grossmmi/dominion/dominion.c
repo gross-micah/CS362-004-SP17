@@ -705,6 +705,60 @@ great_hallM(int currentPlayer, int handPos, struct gameState *state)
   discardCard(handPos, currentPlayer, state, 0);
 }
 
+minionM(int currentPlayer, int handPos, int choice1, int choice2, struct gameState *state)
+{
+  //+1 action
+  state->numActions++;
+
+  //discard card from hand
+  discardCard(handPos, currentPlayer, state, 0);
+
+  if (choice1)		//+2 coins
+  {
+    state->coins = state->coins + 2;
+  }
+
+  else if (choice2)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
+  {
+    int i;
+    int j;
+    //discard hand
+    while(numHandCards(state) > 0)
+    {
+      discardCard(handPos, currentPlayer, state, 0);
+    }
+
+    //draw 4
+    for (i = 0; i < 4; i++)
+    {
+      drawCard(currentPlayer, state);
+    }
+
+    //other players discard hand and redraw if hand size > 4
+    for (i = 0; i < state->numPlayers; i++)
+    {
+      if (i != currentPlayer)
+      {
+        if ( state->handCount[i] > 4 )
+        {
+          //discard hand
+          while( state->handCount[i] > 0 )
+          {
+            discardCard(handPos, i, state, 0);
+          }
+
+          //draw 4
+          for (j = 0; j < 4; j++)
+          {
+            drawCard(i, state);
+          }
+        }
+      }
+    }
+
+  }
+}
+
 int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 {
   int i;
@@ -987,6 +1041,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 
     case minion:
+    /*
       //+1 action
       state->numActions++;
 
@@ -1035,6 +1090,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 	    }
 
 	}
+  */
+      minionM(currentPlayer, handPos, choice1, choice2, state);
       return 0;
 
     case steward:
