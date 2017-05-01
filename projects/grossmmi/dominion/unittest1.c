@@ -5,13 +5,12 @@
 #include <assert.h>
 #include "rngs.h"
 #include <stdlib.h>
-#include <iostream>
 
 int main() {
   std::cout << "Unit Test 1: handCard() method" << std::endl;
   int seed = 1000;
   int numPlayer = 2;
-  int p = 1
+  int p = 1;
   int k[10] = {adventurer, council_room, feast, gardens, mine
                  , remodel, smithy, village, baron, great_hall};
   struct gameState G;
