@@ -24,7 +24,7 @@ testAll: dominion.o testSuite.c
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
 
-runtests: testDrawCard 
+runtests: testDrawCard
 	./testDrawCard &> unittestresult.out
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
@@ -33,7 +33,31 @@ runtests: testDrawCard
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
 
+unittestreslts.out: unittest1.c unittest2.c unittest3.c unittest4.c dominion.o rngs.o
+	echo "Result for running BST tests:" > tests.out
+
+	echo "unittest1.c:" >> tests.out
+	gcc -o unittest1 dominion.o rngs.o unittest1.c $(CFLAGS)
+	unittest1 >> unittestreslts.out
+	gcov bst.o >> unittestreslts.out
+
+	echo "unittest2.c:" >> tests.out
+	gcc -o unittest2 dominion.o rngs.o unittest2.c $(CFLAGS)
+	unittest2 >> unittestreslts.out
+	gcov bst.o >> unittestreslts.out
+
+	echo "unittest3.c:" >> tests.out
+	gcc -o unittest3 dominion.o rngs.o unittest3.c $(CFLAGS)
+	unittest3 >> unittestreslts.out
+	gcov bst.o >> unittestreslts.out
+
+	echo "unittest4.c:" >> tests.out
+	gcc -o unittest4 dominion.o rngs.o unittest4.c $(CFLAGS)
+	unittest4 >> unittestreslts.out
+	gcov bst.o >> unittestreslts.out
+
+
 all: playdom player testDrawCard testBuyCard badTestDrawCard
 
 clean:
-	rm -f *.o playdom.exe playdom test.exe test player player.exe testInit testInit.exe *.gcov *.gcda *.gcno *.so
+	rm -f *.o playdom.exe playdom test.exe test player player.exe testInit testInit.exe unittestreslts.out *.gcov *.gcda *.gcno *.so
