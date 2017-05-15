@@ -33,13 +33,15 @@ int main()
     handCount = test.handCount[player];
     deckCount = test.deckCount[player];
     test.playedCardCount = 0;
-    int numActions = test->numActions;
-    villageM(player, rand() % handCount + 1, &test);
+    int numActions = test.numActions;
+    //play top card of deck which should be village
+    int cardDrawn = test.hand[player][test.handCount[player] - 1];
+    villageM(player, cardDrawn, &test);
     if (test.playedCardCount != 1)
     {
       printf("Error, more than 1 card played for Village\n");
     }
-    if (test->numActions != numActions + 2)
+    if (test.numActions != numActions + 2)
     {
       printf("Error, number of actions not expected value for Village use.\n");
     }

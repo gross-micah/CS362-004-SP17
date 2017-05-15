@@ -22,9 +22,9 @@ int main()
   {
     playerCount = rand() % (MAX_PLAYERS - 1) + 2;
     player = rand() % playerCount + 1;
-    test.deckCount[p] = floor(Random() * MAX_DECK);
-    test.discardCount[p] = floor(Random() * MAX_DECK);
-    test.handCount[p] = floor(Random() * MAX_HAND);
+    test.deckCount[player] = floor(Random() * MAX_DECK);
+    test.discardCount[player] = floor(Random() * MAX_DECK);
+    test.handCount[player] = floor(Random() * MAX_HAND);
     seed = rand() % 500;
     initializeGame(playerCount, k, seed, &test);
 
@@ -37,6 +37,10 @@ int main()
     if (test.playedCardCount != 1)
     {
       printf("Error, more than 1 card played for Smithy\n");
+    }
+    if (test.handCount[player] != handCount + 3)
+    {
+      printf("Error, wrong number of cards added to hand.\n");
     }
 
 
