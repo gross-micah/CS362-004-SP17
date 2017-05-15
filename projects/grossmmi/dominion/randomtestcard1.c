@@ -18,12 +18,27 @@ int main()
   int i, n, r, p, deckCount, discardCount, handCount, playerCount, seed, player;
   //when possible use defined values from dominion.h
 
-  for (i = 0; i < 50000; i++)
+  for (i = 0; i < 500; i++)
   {
     playerCount = rand() % (MAX_PLAYERS - 1) + 2;
-    player = rand() % playerCount;
+    player = rand() % playerCount + 1;
+    test.deckCount[p] = floor(Random() * MAX_DECK);
+    test.discardCount[p] = floor(Random() * MAX_DECK);
+    test.handCount[p] = floor(Random() * MAX_HAND);
     seed = rand() % 500;
     initializeGame(playerCount, k, seed, &test);
+
+    shuffle(player, &test);
+    gainCard(smithy, &test, 2, player);
+    handCount = test.handCount[player];
+    deckCount = test.deckCount[player];
+    test.playedCardCount = 0;
+    smithyM(player, rand() % handCount + 1, &test);
+    if (test.playedCardCount != 1)
+    {
+      printf("Error, more than 1 card played for Smithy\n");
+    }
+
 
   }
 

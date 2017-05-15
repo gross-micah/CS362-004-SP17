@@ -83,7 +83,7 @@ unittestreslts.out: unittest1.c unittest2.c unittest3.c unittest4.c dominion.o r
 	gcov bst.o >> unittestreslts.out
 
 
-all: playdom player testDrawCard testBuyCard badTestDrawCard
+all: playdom player testDrawCard testBuyCard badTestDrawCard randomtestcard1 randomtestcard2 randomtestadventurer
 
 clean:
 	rm -f *.o playdom.exe playdom test.exe test player player.exe testInit testInit.exe unittestreslts.out *.gcov *.gcda *.gcno *.so
