@@ -5,7 +5,7 @@
 #include "dominion.h"
 #include "dominion_helpers.h"
 
-//implementation for Village card from Assignment 2
+//implementation for Village card from Assignment 2..
 int main()
 {
   srand(time(NULL));
