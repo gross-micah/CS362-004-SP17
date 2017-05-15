@@ -29,6 +29,32 @@ runtests: testDrawCard
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
+randomtestcard1: randomtestcard1.c dominion.h dominion.o rngs.o
+	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o $(CFLAGS)
+
+randomtestcard2: randomtestcard2.c dominion.h dominion.o rngs.o
+	gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o $(CFLAGS)
+
+randomtestadventurer: randomtestadventurer.c dominion.h dominion.o rngs.o
+	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
+
+assign4:
+	make clean
+	make randomtestcard1
+	make randomtestcard2
+	make randomtestadventurer
+	rm -f randomtestcard1.out
+	rm -f randomtestcard2.out
+	rm -f randomtestadventurer.out
+	./randomtestcard1 >> randomtestcard1.out
+	./randomtestcard2 >> randomtestcard2.out
+	./randomtestadventurer >> randomtestadventurer.out
+	gcov -b dominion.c >> randomtestcard1.out
+	gcov -b dominion.c >> randomtestcard2.out
+	gcov -b dominion.c >> randomtestadventurer.out
+	cat dominion.c.gov >> randomtestcard1.out
+	cat dominion.c.gov >> randomtestcard2.out
+	cat dominion.c.gov >> randomtestadventurer.out
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
